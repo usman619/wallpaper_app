@@ -5,6 +5,15 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Explore Page'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text('Welcome to Explore Page'),
+      ),
+    );
   }
 }

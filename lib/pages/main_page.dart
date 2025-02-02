@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home_filled),
-                  label: "Home",
+                  label: "For You",
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.layers_outlined),

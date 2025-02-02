@@ -160,6 +160,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 return ImageTile(
                   imageSource:
                       "https://picsum.photos/500/500?random=img_$index",
+                  authorImageSource: "assets/images/profile_pic_3.png",
                   index: index,
                   extent: (index % 2) == 0 ? 300 : 150,
                 );

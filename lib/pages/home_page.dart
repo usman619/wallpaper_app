@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:wallpaper_app/components/image_tile.dart';
+import 'package:wallpaper_app/components/profile_picture.dart';
 
 class HomePage extends StatefulWidget {
   final Function(bool) afterScrollResult;
@@ -55,9 +56,11 @@ class _HomePageState extends State<HomePage> {
               floating: true,
               snap: true,
               title: Center(
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey.shade400,
+                child: ProfilePicture(
+                  imageSource: "assets/images/profile_pic_2.png",
                   radius: 25,
+                  height: 50,
+                  width: 50,
                 ),
               ),
               bottom: TabBar(
@@ -69,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 overlayColor: WidgetStatePropertyAll(Colors.grey[320]),
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-                labelColor: Colors.red.shade700,
+                labelColor: Colors.black,
                 indicatorColor: Colors.red,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 5,
@@ -88,6 +91,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return ImageTile(
                   imageSource: "https://picsum.photos/500/500?random=$index",
+                  authorImageSource: "assets/images/profile_pic_2.png",
                   index: index,
                   extent: (index % 2) == 0 ? 300 : 150,
                 );

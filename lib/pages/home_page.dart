@@ -1,30 +1,104 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:wallpaper_app/components/image_tile.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Function(bool) afterScrollResult;
+  const HomePage({
+    super.key,
+    required this.afterScrollResult,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _isVisible = true;
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(
+      () {
+        if (_scrollController.position.userScrollDirection ==
+            ScrollDirection.reverse) {
+          // result: false
+          if (_isVisible) {
+            _isVisible = false;
+            widget.afterScrollResult(_isVisible);
+          }
+        }
+        if (_scrollController.position.userScrollDirection ==
+            ScrollDirection.forward) {
+          // result: true
+          if (!_isVisible) {
+            _isVisible = true;
+            widget.afterScrollResult(_isVisible);
+          }
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MasonryGridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        padding: EdgeInsets.all(8),
-        itemBuilder: (context, index) {
-          return ImageTile(
-            imageSource: "https://picsum.photos/500/500?random=$index",
-            index: index,
-            extent: (index % 2) == 0 ? 300 : 150,
-          );
+    return DefaultTabController(
+      length: 3,
+      child: NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              floating: true,
+              snap: true,
+              title: Center(
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey.shade400,
+                  radius: 25,
+                ),
+              ),
+              bottom: TabBar(
+                tabs: [
+                  Tab(text: 'Suggested'),
+                  Tab(text: 'Liked'),
+                  Tab(text: 'Library')
+                ],
+                overlayColor: WidgetStatePropertyAll(Colors.grey[320]),
+                labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                labelColor: Colors.red.shade700,
+                indicatorColor: Colors.red,
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorWeight: 5,
+              ),
+            ),
+          ];
         },
+        body: TabBarView(
+          children: [
+            // Tab - Suggested
+            MasonryGridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              padding: EdgeInsets.all(8),
+              itemBuilder: (context, index) {
+                return ImageTile(
+                  imageSource: "https://picsum.photos/500/500?random=$index",
+                  index: index,
+                  extent: (index % 2) == 0 ? 300 : 150,
+                );
+              },
+            ),
+            // Tab - Liked
+            SizedBox(),
+            // Tab - Library
+            SizedBox(),
+          ],
+        ),
       ),
     );
   }

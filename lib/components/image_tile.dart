@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageTile extends StatelessWidget {
@@ -23,10 +24,14 @@ class ImageTile extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          Image.network(
-            imageSource,
+          CachedNetworkImage(
+            imageUrl: imageSource,
             fit: BoxFit.cover,
           ),
+          // Image.network(
+          //   imageSource,
+          //   fit: BoxFit.cover,
+          // ),
           Positioned(
             bottom: 0,
             right: 0,
@@ -45,7 +50,15 @@ class ImageTile extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  Icon(Icons.favorite_border_outlined)
+                  InkWell(
+                    onTap: () {
+                      // Add Wallpaper to favorite
+                    },
+                    child: Icon(
+                      Icons.favorite_border_outlined,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -8,7 +8,6 @@ class AccountsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Account Page'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
       ),
       body: const Center(

@@ -12,16 +12,23 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
+  bool _isVisible = true;
   List<Widget> _pages = [];
 
   @override
   void initState() {
     super.initState();
     _pages = [
-      const HomePage(),
-      const ExplorePage(),
+      HomePage(afterScrollResult: afterScrollResult),
+      ExplorePage(afterScrollResult: afterScrollResult),
       const AccountsPage(),
     ];
+  }
+
+  afterScrollResult(bool visibility) {
+    setState(() {
+      _isVisible = visibility;
+    });
   }
 
   @override
@@ -31,37 +38,43 @@ class _MainPageState extends State<MainPage> {
         index: _currentIndex,
         children: _pages,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        fixedColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        iconSize: 32,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_filled,
+      bottomNavigationBar: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: _isVisible ? 75 : 0,
+        child: Wrap(
+          children: [
+            BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              fixedColor: Colors.black,
+              unselectedItemColor: Colors.grey,
+              elevation: 0,
+              selectedLabelStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+              iconSize: 32,
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_filled),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.layers_outlined),
+                  label: "Explore",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+                  label: "Account",
+                ),
+              ],
             ),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-            ),
-            label: "Explore",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-            ),
-            label: "Account",
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

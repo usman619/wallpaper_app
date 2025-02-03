@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
     _pages = [
       HomePage(afterScrollResult: afterScrollResult),
       ExplorePage(afterScrollResult: afterScrollResult),
-      const AccountsPage(),
+      AccountsPage(afterScrollResult: afterScrollResult),
     ];
   }
 

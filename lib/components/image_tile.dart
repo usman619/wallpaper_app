@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:wallpaper_app/components/profile_picture.dart';
+import 'package:wallpaper_app/components/creator_picture.dart';
 
 class ImageTile extends StatelessWidget {
   final String imageSource;
@@ -97,8 +97,11 @@ class ImageTile extends StatelessWidget {
                           Navigator.pop(context);
                         },
                         icon: Icon(
-                          Icons.cancel_rounded,
-                          color: Colors.black,
+                          Icons.cancel,
+                          size: 28,
+                          color: Colors.white.withValues(
+                            alpha: 0.75,
+                          ),
                         ),
                       ),
                     ),
@@ -109,20 +112,26 @@ class ImageTile extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                             icon: Icon(
                               Icons.favorite_border_rounded,
-                              color: Colors.black,
+                              size: 28,
+                              color: Colors.white.withValues(
+                                alpha: 0.75,
+                              ),
                             ),
                           ),
                           IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              // Navigator.pop(context);
                             },
                             icon: Icon(
                               Icons.share_rounded,
-                              color: Colors.black,
+                              size: 28,
+                              color: Colors.white.withValues(
+                                alpha: 0.75,
+                              ),
                             ),
                           ),
                         ],
@@ -173,8 +182,9 @@ class ImageTile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ProfilePicture(
+                    CreatorPicture(
                       imageSource: authorImageSource,
+                      badgeType: BadgeType.add,
                       radius: 25,
                       height: 50,
                       width: 50,

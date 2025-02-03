@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/pages/main_page.dart';
+import 'package:wallpaper_app/pages/profile_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // brightness: Brightness.dark,
         // colorScheme: const ColorScheme.dark(),
+        fontFamily: 'NotoScans',
         useMaterial3: true,
       ),
       home: const MainPage(),

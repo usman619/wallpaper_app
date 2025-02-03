@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:wallpaper_app/components/collection_tile.dart';
 import 'package:wallpaper_app/components/image_tile.dart';
 
 const double kImageSliderHeight = 320;
@@ -118,34 +119,29 @@ class _ExplorePageState extends State<ExplorePage> {
                   ),
                 ),
               ),
-              MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: SliverAppBar(
-                  floating: true,
-                  snap: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(12)),
-                  ),
-                  backgroundColor: _isVisible
-                      ? Colors.white
-                      : Colors.white.withValues(alpha: 0.95),
-                  title: TextButton.icon(
-                    onPressed: () {},
-                    label: Text('Search'),
-                    icon: Icon(Icons.search_rounded),
-                    style: ButtonStyle(
-                      foregroundColor: WidgetStatePropertyAll(Colors.black),
-                      iconSize: WidgetStatePropertyAll(24),
-                      textStyle: WidgetStatePropertyAll(
-                        TextStyle(fontSize: 20),
-                      ),
-                      overlayColor: WidgetStatePropertyAll(Colors.grey[320]),
-                    ),
-                  ),
-                  centerTitle: true,
+              SliverAppBar(
+                floating: true,
+                snap: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 ),
+                backgroundColor: _isVisible
+                    ? Colors.white
+                    : Colors.white.withValues(alpha: 0.95),
+                title: TextButton.icon(
+                  onPressed: () {},
+                  label: Text('Search'),
+                  icon: Icon(Icons.search_rounded),
+                  style: ButtonStyle(
+                    foregroundColor: WidgetStatePropertyAll(Colors.black),
+                    iconSize: WidgetStatePropertyAll(24),
+                    textStyle: WidgetStatePropertyAll(
+                      TextStyle(fontSize: 20),
+                    ),
+                    overlayColor: WidgetStatePropertyAll(Colors.grey[320]),
+                  ),
+                ),
+                centerTitle: true,
               ),
             ];
           },
@@ -157,13 +153,18 @@ class _ExplorePageState extends State<ExplorePage> {
               crossAxisSpacing: 12,
               padding: EdgeInsets.all(8),
               itemBuilder: (context, index) {
-                return ImageTile(
-                  imageSource:
-                      "https://picsum.photos/500/500?random=img_$index",
-                  authorImageSource: "assets/images/profile_pic_3.png",
-                  index: index,
-                  extent: (index % 2) == 0 ? 300 : 150,
-                );
+                return (index % 2) == 0
+                    ? ImageTile(
+                        imageSource:
+                            "https://picsum.photos/500/500?random=img_$index",
+                        authorImageSource: "assets/images/profile_pic_3.png",
+                        index: index,
+                        extent: 300,
+                      )
+                    : CollectionTile(
+                        index: index,
+                        extent: 150,
+                      );
               },
             ),
           ),

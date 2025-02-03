@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:wallpaper_app/components/collection_tile.dart';
+import 'package:wallpaper_app/components/creator_picture.dart';
 import 'package:wallpaper_app/components/image_tile.dart';
-import 'package:wallpaper_app/components/profile_picture.dart';
 
 class HomePage extends StatefulWidget {
   final Function(bool) afterScrollResult;
@@ -56,11 +57,12 @@ class _HomePageState extends State<HomePage> {
               floating: true,
               snap: true,
               title: Center(
-                child: ProfilePicture(
+                child: CreatorPicture(
                   imageSource: "assets/images/profile_pic_2.png",
                   radius: 25,
                   height: 50,
                   width: 50,
+                  badgeType: BadgeType.edit,
                 ),
               ),
               bottom: TabBar(
@@ -70,8 +72,14 @@ class _HomePageState extends State<HomePage> {
                   Tab(text: 'Library')
                 ],
                 overlayColor: WidgetStatePropertyAll(Colors.grey[320]),
-                labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 15.5,
+                ),
                 labelColor: Colors.black,
                 indicatorColor: Colors.red,
                 indicatorSize: TabBarIndicatorSize.tab,
@@ -89,12 +97,18 @@ class _HomePageState extends State<HomePage> {
               crossAxisSpacing: 12,
               padding: EdgeInsets.all(8),
               itemBuilder: (context, index) {
-                return ImageTile(
-                  imageSource: "https://picsum.photos/500/500?random=$index",
-                  authorImageSource: "assets/images/profile_pic_2.png",
-                  index: index,
-                  extent: (index % 2) == 0 ? 300 : 150,
-                );
+                return (index % 2) == 0
+                    ? ImageTile(
+                        imageSource:
+                            "https://picsum.photos/500/500?random=$index",
+                        authorImageSource: "assets/images/profile_pic_2.png",
+                        index: index,
+                        extent: 300,
+                      )
+                    : CollectionTile(
+                        index: index,
+                        extent: 150,
+                      );
               },
             ),
             // Tab - Liked

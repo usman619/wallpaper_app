@@ -1,24 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:wallpaper_app/components/profile_picture.dart';
 
 class AccountsPage extends StatefulWidget {
-  const AccountsPage({super.key});
+  final Function(bool) afterScrollResult;
+  const AccountsPage({
+    super.key,
+    required this.afterScrollResult,
+  });
 
   @override
   State<AccountsPage> createState() => _AccountsPageState();
 }
 
 class _AccountsPageState extends State<AccountsPage> {
+  bool _isVisible = true;
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        // result: false
+        if (_isVisible) {
+          _isVisible = false;
+          widget.afterScrollResult(_isVisible);
+        }
+      }
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        // result: true
+        if (!_isVisible) {
+          _isVisible = true;
+          widget.afterScrollResult(_isVisible);
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: NestedScrollView(
+        controller: _scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
               pinned: true,
-              backgroundColor: Colors.white.withValues(alpha: 0.95),
-              expandedHeight: 75,
+              backgroundColor: Colors.white.withValues(alpha: 0.9),
+              expandedHeight: 80,
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -53,6 +85,7 @@ class _AccountsPageState extends State<AccountsPage> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ProfilePicture(
                         imageSource: "assets/images/profile_pic_2.png",
@@ -173,52 +206,74 @@ class _AccountsPageState extends State<AccountsPage> {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: 75,
-                      width: 75,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.asset(
-                          height: 75,
-                          width: 75,
-                          "assets/icon/sample-app-icon.png",
-                          scale: 5,
-                          fit: BoxFit.cover,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 75,
+                        width: 75,
+                        margin: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(
+                            "assets/icons/sample-app-icon.png",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 75,
-                      width: 75,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(16),
+                      Container(
+                        height: 75,
+                        width: 75,
+                        margin: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: 75,
-                      width: 75,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(16),
+                      Container(
+                        height: 75,
+                        width: 75,
+                        margin: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: 75,
-                      width: 75,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(16),
+                      Container(
+                        height: 75,
+                        width: 75,
+                        margin: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        height: 75,
+                        width: 75,
+                        margin: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      Container(
+                        height: 75,
+                        width: 75,
+                        margin: EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Center(

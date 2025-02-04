@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
           children: [
             BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              fixedColor: Colors.black,
+              fixedColor: Theme.of(context).colorScheme.inversePrimary,
               unselectedItemColor: Colors.grey,
               elevation: 0,
               selectedLabelStyle: TextStyle(

@@ -46,6 +46,10 @@ class ProfilePage extends StatelessWidget {
                             'assets/icons/instagram.svg',
                             width: 24,
                             height: 24,
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.inversePrimary,
+                              BlendMode.srcIn,
+                            ),
                           ),
                           const SizedBox(
                             width: 10,
@@ -54,6 +58,10 @@ class ProfilePage extends StatelessWidget {
                             'assets/icons/x-twitter.svg',
                             width: 24,
                             height: 24,
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.inversePrimary,
+                              BlendMode.srcIn,
+                            ),
                           )
                         ],
                       ),
@@ -76,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                     fontSize: 15.5,
                   ),
-                  labelColor: Colors.black,
+                  labelColor: Theme.of(context).colorScheme.inversePrimary,
                   indicatorColor: Colors.red,
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorWeight: 5,

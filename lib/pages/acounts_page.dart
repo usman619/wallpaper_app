@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:wallpaper_app/components/profile_picture.dart';
+import 'package:wallpaper_app/components/theme_toggle_button.dart';
+import 'package:wallpaper_app/themes/theme_provider.dart';
 
 class AccountsPage extends StatefulWidget {
   final Function(bool) afterScrollResult;
@@ -42,6 +45,7 @@ class _AccountsPageState extends State<AccountsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: NestedScrollView(
         controller: _scrollController,
@@ -49,7 +53,10 @@ class _AccountsPageState extends State<AccountsPage> {
           return [
             SliverAppBar(
               pinned: true,
-              backgroundColor: Colors.white.withValues(alpha: 0.9),
+              backgroundColor: Theme.of(context)
+                  .colorScheme
+                  .secondary
+                  .withValues(alpha: 0.9),
               expandedHeight: 80,
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +70,10 @@ class _AccountsPageState extends State<AccountsPage> {
                   ),
                   Text(
                     'Member since 2/1/2025',
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ],
               ),
@@ -80,7 +90,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 Container(
                   height: 150,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
@@ -97,7 +107,7 @@ class _AccountsPageState extends State<AccountsPage> {
                         'testing123@gmail.com',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       )
                     ],
@@ -106,14 +116,14 @@ class _AccountsPageState extends State<AccountsPage> {
                 Text(
                   'Settings',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   'Theme',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
@@ -122,77 +132,26 @@ class _AccountsPageState extends State<AccountsPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'System',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                      onTap: () => themeProvider,
+                      child: ThemeToggleButton(
+                        label: 'System',
+                        isSelected: themeProvider.isDarkMode,
                       ),
                     ),
-                    const SizedBox(width: 5),
+                    const SizedBox(width: 10),
                     GestureDetector(
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Light',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                      onTap: () => themeProvider.toggleTheme(),
+                      child: ThemeToggleButton(
+                        label: 'Light',
+                        isSelected: themeProvider.isDarkMode,
                       ),
                     ),
-                    const SizedBox(width: 5),
+                    const SizedBox(width: 10),
                     GestureDetector(
-                      child: Container(
-                        height: 50,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Dark',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
+                      onTap: () => themeProvider.toggleTheme(),
+                      child: ThemeToggleButton(
+                        label: 'Dark',
+                        isSelected: themeProvider.isDarkMode,
                       ),
                     ),
                   ],
@@ -201,7 +160,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 Text(
                   'App Icon',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
@@ -294,7 +253,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 Text(
                   'About',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -302,7 +261,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 Text(
                   'About',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -318,15 +277,15 @@ class _AccountsPageState extends State<AccountsPage> {
                 Text(
                   'Terms of Service',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 17),
                 Text(
                   'Licenses',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -334,7 +293,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 Text(
                   'Version',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -342,7 +301,7 @@ class _AccountsPageState extends State<AccountsPage> {
                 Text(
                   '1.3.1',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

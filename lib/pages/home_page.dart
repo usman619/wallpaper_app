@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.normal,
                   fontSize: 15.5,
                 ),
-                labelColor: Colors.black,
+                labelColor: Theme.of(context).colorScheme.inversePrimary,
                 indicatorColor: Colors.red,
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicatorWeight: 5,

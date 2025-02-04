@@ -45,7 +45,7 @@ class _CreatorPictureState extends State<CreatorPicture> {
               ),
             ),
             // Badge
-            _buildBadge(widget.badgeType),
+            _buildBadge(widget.badgeType, context),
           ],
         ),
       ],
@@ -53,25 +53,26 @@ class _CreatorPictureState extends State<CreatorPicture> {
   }
 }
 
-Widget _buildBadge(BadgeType type) {
+Widget _buildBadge(BadgeType type, BuildContext context) {
   switch (type) {
     case BadgeType.edit:
-      return _badgeIcon(Icons.edit, Colors.black, false);
+      return _badgeIcon(context, Icons.edit, Colors.black, false);
     case BadgeType.add:
-      return _badgeIcon(Icons.add, Colors.redAccent, false);
+      return _badgeIcon(context, Icons.add, Colors.redAccent, false);
     case BadgeType.check:
-      return _badgeIcon(Icons.check, Colors.grey.shade700, false);
+      return _badgeIcon(context, Icons.check, Colors.grey.shade700, false);
   }
 }
 
-Widget _badgeIcon(IconData iconType, Color color, bool transparent) {
+Widget _badgeIcon(
+    BuildContext context, IconData iconType, Color color, bool transparent) {
   return Align(
     alignment: Alignment.bottomRight,
     child: Container(
       decoration: BoxDecoration(
         color: color,
         border: Border.all(
-          color: transparent ? Colors.transparent : Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           width: 3,
         ),
         shape: BoxShape.circle,

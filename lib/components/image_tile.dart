@@ -99,9 +99,12 @@ class ImageTile extends StatelessWidget {
                         icon: Icon(
                           Icons.cancel,
                           size: 28,
-                          color: Colors.white.withValues(
-                            alpha: 0.75,
-                          ),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .inversePrimary
+                              .withValues(
+                                alpha: 0.75,
+                              ),
                         ),
                       ),
                     ),
@@ -117,9 +120,12 @@ class ImageTile extends StatelessWidget {
                             icon: Icon(
                               Icons.favorite_border_rounded,
                               size: 28,
-                              color: Colors.white.withValues(
-                                alpha: 0.75,
-                              ),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .inversePrimary
+                                  .withValues(
+                                    alpha: 0.75,
+                                  ),
                             ),
                           ),
                           IconButton(
@@ -129,9 +135,12 @@ class ImageTile extends StatelessWidget {
                             icon: Icon(
                               Icons.share_rounded,
                               size: 28,
-                              color: Colors.white.withValues(
-                                alpha: 0.75,
-                              ),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .inversePrimary
+                                  .withValues(
+                                    alpha: 0.75,
+                                  ),
                             ),
                           ),
                         ],
@@ -144,7 +153,7 @@ class ImageTile extends StatelessWidget {
                 Text(
                   'Wallpaper Name',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Theme.of(context).colorScheme.inversePrimary,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
@@ -156,8 +165,8 @@ class ImageTile extends StatelessWidget {
                   child: MaterialButton(
                     onPressed: () {},
                     padding: const EdgeInsets.all(15),
-                    color: Colors.black,
-                    textColor: Colors.white,
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                    textColor: Theme.of(context).colorScheme.surface,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -193,7 +202,6 @@ class ImageTile extends StatelessWidget {
                     Text(
                       'Name of the Creator',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -210,7 +218,6 @@ class ImageTile extends StatelessWidget {
                     Text(
                       'Theme - Photography, 3D etc',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -227,7 +234,6 @@ class ImageTile extends StatelessWidget {
                     Text(
                       'Full Res - Resolution',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
@@ -244,7 +250,6 @@ class ImageTile extends StatelessWidget {
                     Text(
                       'Quality - Resolution',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),

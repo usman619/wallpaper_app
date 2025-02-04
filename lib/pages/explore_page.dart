@@ -126,19 +126,26 @@ class _ExplorePageState extends State<ExplorePage> {
                   borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                 ),
                 backgroundColor: _isVisible
-                    ? Colors.white
-                    : Colors.white.withValues(alpha: 0.95),
+                    ? Theme.of(context).colorScheme.surface
+                    : Theme.of(context)
+                        .colorScheme
+                        .surface
+                        .withValues(alpha: 0.95),
                 title: TextButton.icon(
                   onPressed: () {},
                   label: Text('Search'),
                   icon: Icon(Icons.search_rounded),
                   style: ButtonStyle(
-                    foregroundColor: WidgetStatePropertyAll(Colors.black),
+                    // foregroundColor: WidgetStatePropertyAll(
+                    //   Colors.black,
+                    // ),
                     iconSize: WidgetStatePropertyAll(24),
                     textStyle: WidgetStatePropertyAll(
                       TextStyle(fontSize: 20),
                     ),
-                    overlayColor: WidgetStatePropertyAll(Colors.grey[320]),
+                    overlayColor: WidgetStatePropertyAll(
+                      Theme.of(context).colorScheme.surface,
+                    ),
                   ),
                 ),
                 centerTitle: true,
@@ -146,7 +153,7 @@ class _ExplorePageState extends State<ExplorePage> {
             ];
           },
           body: Container(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             child: MasonryGridView.count(
               crossAxisCount: 2,
               mainAxisSpacing: 12,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_app/components/profile_picture.dart';
-import 'package:wallpaper_app/components/theme_toggle_button.dart';
+import 'package:wallpaper_app/components/theme_selector.dart';
 import 'package:wallpaper_app/themes/theme_provider.dart';
 
 class AccountsPage extends StatefulWidget {
@@ -128,34 +128,7 @@ class _AccountsPageState extends State<AccountsPage> {
                   ),
                 ),
                 const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () => themeProvider,
-                      child: ThemeToggleButton(
-                        label: 'System',
-                        isSelected: themeProvider.isDarkMode,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: () => themeProvider.toggleTheme(),
-                      child: ThemeToggleButton(
-                        label: 'Light',
-                        isSelected: themeProvider.isDarkMode,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    GestureDetector(
-                      onTap: () => themeProvider.toggleTheme(),
-                      child: ThemeToggleButton(
-                        label: 'Dark',
-                        isSelected: themeProvider.isDarkMode,
-                      ),
-                    ),
-                  ],
-                ),
+                ThemeSelector(),
                 const SizedBox(height: 5),
                 Text(
                   'App Icon',

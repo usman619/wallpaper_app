@@ -5,7 +5,8 @@ import 'package:wallpaper_app/themes/light_mode.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData _themeData;
-  int _selectedThemeIndex = 0; // 0: System, 1: Light, 2: Dark
+  // 0: System, 1: Light, 2: Dark
+  int _selectedThemeIndex = 0;
 
   ThemeProvider() : _themeData = _getInitialTheme() {
     // Listen for system theme changes when in "System" mode.

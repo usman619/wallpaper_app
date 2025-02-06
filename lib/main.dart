@@ -23,11 +23,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: themeProvider.themeData,
-      home: const SplashScreen(),
-    );
+    return Consumer<ThemeProvider>(builder: (
+      context,
+      themeProvider,
+      child,
+    ) {
+      return MaterialApp(
+        title: 'Wallpaper App',
+        debugShowCheckedModeBanner: false,
+        theme: themeProvider.themeData,
+        home: const SplashScreen(),
+        routes: <String, WidgetBuilder>{
+          '/main': (context) => const MainPage(),
+        },
+      );
+    });
   }
 }

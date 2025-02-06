@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="wallpaper_app"
+        android:label="Wallpaper App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -16,16 +16,7 @@
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
-        <!-- Adding Splash Screen and Fingerprint Lock -->
-        <uses-permission android:name="android.permission.INTERNET"/>
-        <!-- <meta-data
-            android:name="io.flutter.embedding.android.SplashScreenDrawable"
-            android:resource="@drawable/launch_background"
-            /> -->
-        <!-- <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
-        <uses-permission android:name="android.permission.USE_FINGERPRINT"/> -->
-
-        <!-- END -->
+        
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
@@ -52,4 +43,18 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 </manifest>
+
+<!-- Adding Splash Screen and Fingerprint Lock -->
+        
+        <!-- <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/launch_background"
+            /> -->
+        <!-- <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+        <uses-permission android:name="android.permission.USE_FINGERPRINT"/> -->
+
+        <!-- END -->

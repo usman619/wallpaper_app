@@ -5,6 +5,13 @@ class UserAccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Account'),
+      ),
+      body: Center(
+        child: Text('User Account Page'),
+      ),
+    );
   }
 }

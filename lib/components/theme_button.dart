@@ -27,7 +27,7 @@ class ThemeButton extends StatelessWidget {
             color: isSelected
                 ? Theme.of(context).colorScheme.inversePrimary
                 : Theme.of(context).colorScheme.primary,
-            width: 3,
+            width: 1.5,
           ),
           borderRadius: BorderRadius.circular(8),
         ),

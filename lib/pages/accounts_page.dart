@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
 import 'package:wallpaper_app/components/profile_picture.dart';
 import 'package:wallpaper_app/components/theme_selector.dart';
-import 'package:wallpaper_app/themes/theme_provider.dart';
+import 'package:wallpaper_app/pages/user_account_page.dart';
 
 class AccountsPage extends StatefulWidget {
   final Function(bool) afterScrollResult;
@@ -45,7 +44,7 @@ class _AccountsPageState extends State<AccountsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    // final themeProvider = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: NestedScrollView(
         controller: _scrollController,
@@ -86,31 +85,42 @@ class _AccountsPageState extends State<AccountsPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 10,
               children: [
-                Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ProfilePicture(
-                        imageSource: "assets/images/profile_pic_2.png",
-                        radius: 50,
-                        height: 100,
-                        width: 100,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UserAccountPage(),
                       ),
-                      Text(
-                        'testing123@gmail.com',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.primary,
+                    );
+                  },
+                  child: Container(
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ProfilePicture(
+                          imageSource: "assets/images/profile_pic_2.png",
+                          radius: 50,
+                          height: 100,
+                          width: 100,
                         ),
-                      )
-                    ],
+                        Text(
+                          'testing123@gmail.com',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 Text(
@@ -127,9 +137,7 @@ class _AccountsPageState extends State<AccountsPage> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                const SizedBox(height: 5),
                 ThemeSelector(),
-                const SizedBox(height: 5),
                 Text(
                   'App Icon',
                   style: TextStyle(
@@ -137,16 +145,15 @@ class _AccountsPageState extends State<AccountsPage> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                const SizedBox(height: 5),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 10,
                     children: [
                       Container(
                         height: 75,
                         width: 75,
-                        margin: EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(16),
@@ -162,7 +169,6 @@ class _AccountsPageState extends State<AccountsPage> {
                       Container(
                         height: 75,
                         width: 75,
-                        margin: EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(16),
@@ -171,7 +177,6 @@ class _AccountsPageState extends State<AccountsPage> {
                       Container(
                         height: 75,
                         width: 75,
-                        margin: EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(16),
@@ -180,7 +185,6 @@ class _AccountsPageState extends State<AccountsPage> {
                       Container(
                         height: 75,
                         width: 75,
-                        margin: EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(16),
@@ -189,7 +193,6 @@ class _AccountsPageState extends State<AccountsPage> {
                       Container(
                         height: 75,
                         width: 75,
-                        margin: EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                           color: Colors.red,
                           borderRadius: BorderRadius.circular(16),
@@ -198,7 +201,6 @@ class _AccountsPageState extends State<AccountsPage> {
                       Container(
                         height: 75,
                         width: 75,
-                        margin: EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(16),
@@ -207,9 +209,9 @@ class _AccountsPageState extends State<AccountsPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
                 Center(
                   child: Column(
+                    spacing: 5,
                     children: [
                       Text(
                         'Panels © 2025,',
@@ -233,52 +235,33 @@ class _AccountsPageState extends State<AccountsPage> {
                 const SizedBox(height: 10),
                 Text(
                   'About',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'Privacy Policy',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'Terms of Service',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 17),
                 Text(
                   'Licenses',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   'Version',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   '1.3.1',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 10),
               ],
             ),
           ),

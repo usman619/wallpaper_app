@@ -84,63 +84,76 @@ class ImageTile extends StatelessWidget {
           return FractionallySizedBox(
             heightFactor: 1,
             child: Column(
+              spacing: 10,
               children: [
                 // Image
                 Stack(
                   children: [
-                    CachedNetworkImage(imageUrl: imageSource),
+                    GestureDetector(
+                      onTap: () => showDownloadOptions(context),
+                      child: CachedNetworkImage(
+                        imageUrl: imageSource,
+                      ),
+                    ),
                     Positioned(
-                      top: 0,
+                      top: 15,
                       left: 0,
-                      child: IconButton(
-                        onPressed: () {
+                      child: GestureDetector(
+                        onTap: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
-                          Icons.cancel,
-                          size: 28,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .inversePrimary
-                              .withValues(
-                                alpha: 0.75,
-                              ),
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.5),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.cancel_outlined,
+                            size: 24,
+                            color: Colors.black.withValues(alpha: 0.5),
+                          ),
                         ),
                       ),
                     ),
                     Positioned(
-                      top: 0,
+                      top: 15,
                       right: 0,
                       child: Row(
+                        spacing: 5,
                         children: [
-                          IconButton(
-                            onPressed: () {
+                          GestureDetector(
+                            onTap: () {
                               // Navigator.pop(context);
                             },
-                            icon: Icon(
-                              Icons.favorite_border_rounded,
-                              size: 28,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .inversePrimary
-                                  .withValues(
-                                    alpha: 0.75,
-                                  ),
+                            child: Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.5),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.favorite_border_rounded,
+                                size: 24,
+                                color: Colors.black.withValues(alpha: 0.5),
+                              ),
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {
+                          GestureDetector(
+                            onTap: () {
                               // Navigator.pop(context);
                             },
-                            icon: Icon(
-                              Icons.share_rounded,
-                              size: 28,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .inversePrimary
-                                  .withValues(
-                                    alpha: 0.75,
-                                  ),
+                            child: Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.5),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.share_rounded,
+                                size: 24,
+                                color: Colors.black.withValues(alpha: 0.5),
+                              ),
                             ),
                           ),
                         ],
@@ -148,7 +161,7 @@ class ImageTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+
                 // Image Title
                 Text(
                   'Wallpaper Name',
@@ -158,23 +171,26 @@ class ImageTile extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 10),
+
                 // Download Button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: MaterialButton(
-                    onPressed: () {},
-                    padding: const EdgeInsets.all(15),
+                    onPressed: () => showDownloadOptions(context),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 20,
+                    ),
                     color: Theme.of(context).colorScheme.inversePrimary,
                     textColor: Theme.of(context).colorScheme.surface,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
+                      spacing: 5,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.image_outlined),
-                        const SizedBox(width: 5),
                         Text(
                           'Get Wallpaper',
                           style: TextStyle(
@@ -186,79 +202,227 @@ class ImageTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+
                 // Creator
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CreatorPicture(
-                      imageSource: authorImageSource,
-                      badgeType: BadgeType.add,
-                      radius: 25,
-                      height: 50,
-                      width: 50,
-                    ),
-                    const SizedBox(width: 15),
-                    Text(
-                      'Name of the Creator',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: 15,
+                    children: [
+                      CreatorPicture(
+                        imageSource: authorImageSource,
+                        badgeType: BadgeType.add,
+                        radius: 25,
+                        height: 50,
+                        width: 50,
                       ),
-                    )
-                  ],
+                      Text(
+                        'Name of the Creator',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
+
                 // Image Theme
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.twenty_four_mp_rounded),
-                    const SizedBox(width: 15),
-                    Text(
-                      'Theme - Photography, 3D etc',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: 15,
+                    children: [
+                      Icon(Icons.twenty_four_mp_rounded),
+                      Text(
+                        'Theme - Photography, 3D etc',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
+
                 // Resolution
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.info),
-                    const SizedBox(width: 15),
-                    Text(
-                      'Full Res - Resolution',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: 15,
+                    children: [
+                      Icon(Icons.info),
+                      Text(
+                        'Full Res - Resolution',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
+
                 // Quality
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.info),
-                    const SizedBox(width: 15),
-                    Text(
-                      'Quality - Resolution',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: 15,
+                    children: [
+                      Icon(Icons.info),
+                      Text(
+                        'Quality - Resolution',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
           );
         });
+  }
+
+  void showDownloadOptions(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: 0.45,
+          child: Column(
+            spacing: 20,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    alignment: Alignment.topLeft,
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(
+                      Icons.cancel,
+                      size: 28,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .inversePrimary
+                          .withValues(alpha: 0.5),
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    'Download Options',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  SizedBox(width: 48),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: MaterialButton(
+                  onPressed: () {
+                    // Download the Image
+                  },
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 20,
+                  ),
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  textColor: Theme.of(context).colorScheme.surface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 5,
+                    children: [
+                      Icon(Icons.download_outlined),
+                      Text(
+                        'Download HD',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: MaterialButton(
+                  onPressed: () {
+                    // Download the Image
+                  },
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 20,
+                  ),
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  textColor: Theme.of(context).colorScheme.surface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 5,
+                    children: [
+                      Icon(Icons.play_circle_filled_rounded),
+                      Text(
+                        'Watch ad for Full-Res',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: MaterialButton(
+                  onPressed: () {
+                    // Download the Image
+                  },
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 20,
+                  ),
+                  color: Colors.amber,
+                  textColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 5,
+                    children: [
+                      Icon(Icons.play_circle_filled_rounded),
+                      Text(
+                        'Go Ad-free',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

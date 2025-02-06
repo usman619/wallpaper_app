@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wallpaper_app/pages/acounts_page.dart';
+import 'package:wallpaper_app/pages/accounts_page.dart';
 import 'package:wallpaper_app/pages/explore_page.dart';
 import 'package:wallpaper_app/pages/home_page.dart';
 

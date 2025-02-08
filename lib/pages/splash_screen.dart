@@ -31,6 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Lottie.asset(
           'assets/animations/Panels-Animation.json',
           animate: true,
+          width: 300,
+          height: 300,
         ),
       ),
     );

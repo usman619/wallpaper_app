@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:wallpaper_app/components/app_list_tile.dart';
 import 'package:wallpaper_app/components/profile_picture.dart';
 import 'package:wallpaper_app/components/theme_selector.dart';
 import 'package:wallpaper_app/pages/user_account_page.dart';
@@ -57,6 +58,7 @@ class _AccountsPageState extends State<AccountsPage> {
                   .secondary
                   .withValues(alpha: 0.9),
               expandedHeight: 80,
+              toolbarHeight: 80,
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -123,30 +125,21 @@ class _AccountsPageState extends State<AccountsPage> {
                     ),
                   ),
                 ),
-                Text(
-                  'Settings',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                ListTile(
+                  title: Text(
+                    'Settings',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                Text(
-                  'Theme',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
+                AppListTile(title: 'Theme'),
                 ThemeSelector(),
-                Text(
-                  'App Icon',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
+                AppListTile(title: 'App Icon'),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     spacing: 10,
@@ -224,44 +217,21 @@ class _AccountsPageState extends State<AccountsPage> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  'About',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                ListTile(
+                  title: Text(
+                    'About',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  'About',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Privacy Policy',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Terms of Service',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 17),
-                Text(
-                  'Licenses',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Version',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  '1.3.1',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
+                AppListTile(title: 'About'),
+                AppListTile(title: 'Privacy Policy'),
+                AppListTile(title: 'Terms of Service'),
+                AppListTile(title: 'Licenses'),
+                AppListTile(title: 'Version'),
+                AppListTile(title: '1.3.1'),
               ],
             ),
           ),

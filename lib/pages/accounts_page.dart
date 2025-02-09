@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:wallpaper_app/components/app_list_tile.dart';
 import 'package:wallpaper_app/components/profile_picture.dart';
 import 'package:wallpaper_app/components/theme_selector.dart';
 import 'package:wallpaper_app/pages/user_account_page.dart';
+import 'package:wallpaper_app/user_provider.dart';
 
 class AccountsPage extends StatefulWidget {
   final Function(bool) afterScrollResult;
@@ -19,10 +21,13 @@ class AccountsPage extends StatefulWidget {
 class _AccountsPageState extends State<AccountsPage> {
   bool _isVisible = true;
   final ScrollController _scrollController = ScrollController();
+  late final UserProvider userProvider;
 
   @override
   void initState() {
     super.initState();
+    userProvider = Provider.of<UserProvider>(context, listen: false);
+
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
@@ -109,13 +114,13 @@ class _AccountsPageState extends State<AccountsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ProfilePicture(
-                          imageSource: "assets/images/profile_pic_2.png",
+                          imageSource: userProvider.user!.photoUrl,
                           radius: 50,
                           height: 100,
                           width: 100,
                         ),
                         Text(
-                          'testing123@gmail.com',
+                          userProvider.user!.name,
                           style: TextStyle(
                             fontSize: 16,
                             color: Theme.of(context).colorScheme.primary,
@@ -206,14 +211,16 @@ class _AccountsPageState extends State<AccountsPage> {
                   child: Column(
                     spacing: 5,
                     children: [
+                      const SizedBox(height: 10),
                       Text(
                         'Panels © 2025,',
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                       Text(
                         'Panels Wallpaper Mobile App LLC.',
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
                       ),
+                      const SizedBox(height: 10)
                     ],
                   ),
                 ),

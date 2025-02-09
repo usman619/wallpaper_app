@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:wallpaper_app/models/user_model.dart';
+import 'package:wallpaper_app/service/database/user_database.dart';
+import 'package:wallpaper_app/user_provider.dart';
 
 class AuthService extends ChangeNotifier {
   // final User userInfo;
@@ -9,31 +13,32 @@ class AuthService extends ChangeNotifier {
   GoogleSignInAccount? _user;
   GoogleSignInAccount? get user => _user;
 
-  AuthService(
-    // this.userInfo,
-    this._supabaseClient,
-  );
+  AuthService(this._supabaseClient);
 
   // Sign in with Google and store the user in db
   Future<void> signInWithGoogle(BuildContext context) async {
     final messenger = ScaffoldMessenger.of(context);
+
     try {
       final account = await _googleSignIn.signIn();
       if (account == null) return;
       _user = account;
       // Extracting User info from Google
-      final googleId = account.id;
-      final email = account.email;
-      final name = account.displayName;
-      final photoUrl = account.photoUrl;
+      final userModel = UserModel(
+        googleId: account.id,
+        email: account.email,
+        name: account.displayName ?? 'No Name',
+        photoUrl: account.photoUrl ?? 'No Photo',
+      );
+
+      // Setting the data in user provider value
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.setUser(userModel);
 
       // Storing user data to the db
-      final response = _supabaseClient.from('users').upsert({
-        'id': googleId,
-        'email': email,
-        'name': name,
-        'photo_url': photoUrl,
-      });
+      final userDatabase = UserDatabase();
+
+      await userDatabase.createNewUser(userModel);
 
       messenger.showSnackBar(const SnackBar(
         content: Text('Saved profile'),
@@ -42,13 +47,17 @@ class AuthService extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       messenger.showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
+      print('Error: ${e.toString()}');
     }
   }
 
   // SignOut
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await _googleSignIn.signOut();
     await _supabaseClient.auth.signOut();
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    userProvider.clearUser();
     _user = null;
     notifyListeners();
   }

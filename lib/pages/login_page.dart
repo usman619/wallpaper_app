@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_app/components/app_button.dart';
+import 'package:wallpaper_app/models/user_model.dart';
+import 'package:wallpaper_app/pages/main_page.dart';
 import 'package:wallpaper_app/service/auth/auth_service.dart';
+import 'package:wallpaper_app/user_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,11 +16,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   late final AuthService authService;
+  late final UserProvider userProvider;
 
   @override
   void initState() {
     super.initState();
     authService = Provider.of<AuthService>(context, listen: false);
+    userProvider = Provider.of<UserProvider>(context, listen: false);
   }
 
   @override
@@ -28,7 +33,8 @@ class _LoginPageState extends State<LoginPage> {
           alignment: Alignment.center,
           children: [
             Container(
-              color: Colors.red[500],
+              // color: Colors.red[500],
+              color: Colors.black,
               width: double.infinity,
               height: double.infinity,
             ),
@@ -46,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Lottie.asset(
                   'assets/animations/Panels-Animation.json',
-                  animate: true,
+                  animate: false,
                   width: 300,
                   height: 300,
                 ),
@@ -55,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     // Use the BuildContext available here.
                     await authService.signInWithGoogle(context);
+                    Navigator.popAndPushNamed(context, '/main');
                   },
                   text: 'Sign in with Google',
                   buttonColor: Colors.white,
@@ -76,7 +83,17 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    final userModel = UserModel(
+                        email: '', name: '', photoUrl: '', googleId: '');
+                    userProvider.setUser(userModel);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MainPage(),
+                        ),
+                        (route) => false);
+                  },
                   child: const Text(
                     'Sign for now',
                     style: TextStyle(

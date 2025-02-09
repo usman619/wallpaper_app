@@ -24,7 +24,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
       radius: widget.radius,
       backgroundColor: Colors.transparent,
       child: ClipOval(
-        child: Image.asset(
+        child: Image.network(
           widget.imageSource,
           scale: 3,
           fit: BoxFit.cover,
@@ -33,5 +33,18 @@ class _ProfilePictureState extends State<ProfilePicture> {
         ),
       ),
     );
+    // return CircleAvatar(
+    //   radius: widget.radius,
+    //   backgroundColor: Colors.transparent,
+    //   child: ClipOval(
+    //     child: Image.asset(
+    //       widget.imageSource,
+    //       scale: 3,
+    //       fit: BoxFit.cover,
+    //       height: widget.height,
+    //       width: widget.width,
+    //     ),
+    //   ),
+    // );
   }
 }

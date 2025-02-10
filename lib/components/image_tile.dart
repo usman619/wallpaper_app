@@ -82,7 +82,7 @@ class ImageTile extends StatelessWidget {
         isScrollControlled: true,
         builder: (context) {
           return FractionallySizedBox(
-            heightFactor: 1,
+            heightFactor: 0.95,
             child: Column(
               spacing: 10,
               children: [
@@ -220,7 +220,7 @@ class ImageTile extends StatelessWidget {
                       Text(
                         'Name of the Creator',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       )
@@ -235,11 +235,11 @@ class ImageTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     spacing: 15,
                     children: [
-                      Icon(Icons.twenty_four_mp_rounded),
+                      Icon(Icons.settings_input_composite_rounded),
                       Text(
                         'Theme - Photography, 3D etc',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       )
@@ -258,7 +258,7 @@ class ImageTile extends StatelessWidget {
                       Text(
                         'Full Res - Resolution',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       )
@@ -277,7 +277,7 @@ class ImageTile extends StatelessWidget {
                       Text(
                         'Quality - Resolution',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       )

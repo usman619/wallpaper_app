@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProfilePicture extends StatefulWidget {
-  final String imageSource;
+  final String? imageSource;
   final double radius;
   final double height;
   final double width;
@@ -24,13 +24,21 @@ class _ProfilePictureState extends State<ProfilePicture> {
       radius: widget.radius,
       backgroundColor: Colors.transparent,
       child: ClipOval(
-        child: Image.network(
-          widget.imageSource,
-          scale: 3,
-          fit: BoxFit.cover,
-          height: widget.height,
-          width: widget.width,
-        ),
+        child: widget.imageSource == ''
+            ? Image.asset(
+                'assets/images/placeholder_image.png',
+                scale: 3,
+                fit: BoxFit.cover,
+                height: widget.height,
+                width: widget.width,
+              )
+            : Image.network(
+                widget.imageSource!,
+                scale: 3,
+                fit: BoxFit.cover,
+                height: widget.height,
+                width: widget.width,
+              ),
       ),
     );
     // return CircleAvatar(

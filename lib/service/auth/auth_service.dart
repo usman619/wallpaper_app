@@ -4,10 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wallpaper_app/models/user_model.dart';
 import 'package:wallpaper_app/service/database/user_database.dart';
-import 'package:wallpaper_app/user_provider.dart';
+import 'package:wallpaper_app/service/user_provider.dart';
 
 class AuthService extends ChangeNotifier {
-  // final User userInfo;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final SupabaseClient _supabaseClient;
   GoogleSignInAccount? _user;

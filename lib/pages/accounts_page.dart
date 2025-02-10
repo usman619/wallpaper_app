@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:wallpaper_app/components/app_list_tile.dart';
-import 'package:wallpaper_app/components/profile_picture.dart';
 import 'package:wallpaper_app/components/theme_selector.dart';
+import 'package:wallpaper_app/components/user_profile_widget.dart';
 import 'package:wallpaper_app/pages/user_account_page.dart';
-import 'package:wallpaper_app/user_provider.dart';
+import 'package:wallpaper_app/service/auth/auth_service.dart';
+import 'package:wallpaper_app/service/user_provider.dart';
 
 class AccountsPage extends StatefulWidget {
   final Function(bool) afterScrollResult;
@@ -22,11 +23,13 @@ class _AccountsPageState extends State<AccountsPage> {
   bool _isVisible = true;
   final ScrollController _scrollController = ScrollController();
   late final UserProvider userProvider;
+  late final AuthService authService;
 
   @override
   void initState() {
     super.initState();
     userProvider = Provider.of<UserProvider>(context, listen: false);
+    authService = Provider.of<AuthService>(context, listen: false);
 
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
@@ -94,41 +97,13 @@ class _AccountsPageState extends State<AccountsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 10,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const UserAccountPage(),
-                      ),
-                    );
+                UserProfileWidget(
+                  name: userProvider.user!.name,
+                  photoUrl: userProvider.user!.photoUrl,
+                  onPressed: () async {
+                    await authService.signInWithGoogle(context);
+                    Navigator.popAndPushNamed(context, '/main');
                   },
-                  child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ProfilePicture(
-                          imageSource: userProvider.user!.photoUrl,
-                          radius: 50,
-                          height: 100,
-                          width: 100,
-                        ),
-                        Text(
-                          userProvider.user!.name,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
                 ),
                 ListTile(
                   title: Text(
@@ -233,7 +208,17 @@ class _AccountsPageState extends State<AccountsPage> {
                     ),
                   ),
                 ),
-                AppListTile(title: 'About'),
+                AppListTile(
+                  title: 'About',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UserAccountPage(),
+                      ),
+                    );
+                  },
+                ),
                 AppListTile(title: 'Privacy Policy'),
                 AppListTile(title: 'Terms of Service'),
                 AppListTile(title: 'Licenses'),

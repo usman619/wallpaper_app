@@ -5,7 +5,7 @@ import 'package:wallpaper_app/components/app_button.dart';
 import 'package:wallpaper_app/models/user_model.dart';
 import 'package:wallpaper_app/pages/main_page.dart';
 import 'package:wallpaper_app/service/auth/auth_service.dart';
-import 'package:wallpaper_app/user_provider.dart';
+import 'package:wallpaper_app/service/user_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -59,7 +59,6 @@ class _LoginPageState extends State<LoginPage> {
                 Spacer(),
                 AppButton(
                   onPressed: () async {
-                    // Use the BuildContext available here.
                     await authService.signInWithGoogle(context);
                     Navigator.popAndPushNamed(context, '/main');
                   },
@@ -85,7 +84,11 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   onPressed: () {
                     final userModel = UserModel(
-                        email: '', name: '', photoUrl: '', googleId: '');
+                      email: '',
+                      name: '',
+                      photoUrl: '',
+                      googleId: '',
+                    );
                     userProvider.setUser(userModel);
                     Navigator.pushAndRemoveUntil(
                         context,

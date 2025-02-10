@@ -5,7 +5,7 @@ import 'package:wallpaper_app/components/app_list_tile.dart';
 import 'package:wallpaper_app/components/profile_picture.dart';
 import 'package:wallpaper_app/pages/login_page.dart';
 import 'package:wallpaper_app/service/auth/auth_service.dart';
-import 'package:wallpaper_app/user_provider.dart';
+import 'package:wallpaper_app/service/user_provider.dart';
 
 class UserAccountPage extends StatefulWidget {
   const UserAccountPage({super.key});
@@ -87,35 +87,145 @@ class _UserAccountPageState extends State<UserAccountPage> {
                   },
                 ),
               ),
-              AppListTile(
-                title: 'Restore Purchases',
-              ),
-              AppListTile(
-                title: 'Delete Account',
-                onTap: () async {
-                  await userProvider.deleteUser();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                      (route) => false);
-                },
-              ),
-              AppListTile(
-                title: 'Sign Out',
-                onTap: () async {
-                  await authService.signOut(context);
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                      (route) => false);
-                },
-              ),
+              userProvider.user!.email == '' && userProvider.user!.name == ''
+                  ? SizedBox()
+                  : Column(
+                      children: [
+                        AppListTile(
+                          title: 'Restore Purchases',
+                          onTap: () {},
+                        ),
+                        AppListTile(
+                          title: 'Delete Account',
+                          onTap: () => showDeleteAccountAlertDialog(
+                              context, userProvider),
+                        ),
+                        AppListTile(
+                          title: 'Sign Out',
+                          onTap: () =>
+                              showSignOutAlertDialog(context, authService),
+                        ),
+                      ],
+                    )
             ],
           ),
         ));
   }
+}
+
+Future<void> showDeleteAccountAlertDialog(
+    BuildContext context, UserProvider userProvider) async {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Confirm delete account?',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.inversePrimary),
+        ),
+        content: const Text(
+            'Are you sure you want to delete your Panels account?',
+            style: TextStyle(color: Colors.grey, fontSize: 18)),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'No',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              await userProvider.deleteUser();
+              if (context.mounted) {
+                // Check if context is still valid
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                  (route) => false,
+                );
+              }
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> showSignOutAlertDialog(
+    BuildContext context, AuthService authService) async {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Confirm sign out?',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.inversePrimary),
+        ),
+        content: const Text(
+          'Are you sure you want to sign out of your Panels account?',
+          style: TextStyle(color: Colors.grey, fontSize: 18),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'No',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              await authService.signOut(context);
+              if (context.mounted) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                  (route) => false,
+                );
+              }
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.inversePrimary),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }

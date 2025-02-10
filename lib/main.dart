@@ -6,7 +6,7 @@ import 'package:wallpaper_app/pages/main_page.dart';
 import 'package:wallpaper_app/pages/splash_screen.dart';
 import 'package:wallpaper_app/service/auth/auth_service.dart';
 import 'package:wallpaper_app/themes/theme_provider.dart';
-import 'package:wallpaper_app/user_provider.dart';
+import 'package:wallpaper_app/service/user_provider.dart';
 import 'package:wallpaper_app/utils/constant.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           title: 'Wallpaper App',
           debugShowCheckedModeBanner: false,
           theme: themeProvider.themeData,
-          home: const LoginPage(),
+          home: const SplashScreen(),
           routes: <String, WidgetBuilder>{
             '/splash': (context) => const SplashScreen(),
             '/main': (context) => const MainPage(),

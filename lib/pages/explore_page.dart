@@ -19,6 +19,10 @@ class _ExplorePageState extends State<ExplorePage> {
   var _selectedSlideIndex = 0;
   bool _isVisible = true;
   final ScrollController _scrollController = ScrollController();
+  // Generate random image URLs
+  final List<String> _imageList = List.generate(25, (index) {
+    return "https://picsum.photos/500/500?random=img_$index";
+  });
 
   @override
   void initState() {
@@ -155,6 +159,7 @@ class _ExplorePageState extends State<ExplorePage> {
           body: Container(
             color: Theme.of(context).colorScheme.surface,
             child: MasonryGridView.count(
+              itemCount: _imageList.length,
               crossAxisCount: 2,
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
@@ -162,8 +167,7 @@ class _ExplorePageState extends State<ExplorePage> {
               itemBuilder: (context, index) {
                 return (index % 2) == 0
                     ? ImageTile(
-                        imageSource:
-                            "https://picsum.photos/500/500?random=img_$index",
+                        imageSource: _imageList[index],
                         authorImageSource: "assets/images/profile_pic_3.png",
                         index: index,
                         extent: 300,

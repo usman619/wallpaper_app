@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 import 'package:wallpaper_app/components/collection_tile.dart';
-import 'package:wallpaper_app/components/creator_picture.dart';
+import 'package:wallpaper_app/components/edit_profile_pic.dart';
 import 'package:wallpaper_app/components/image_tile.dart';
+import 'package:wallpaper_app/service/user_provider.dart';
 
 class HomePage extends StatefulWidget {
   final Function(bool) afterScrollResult;
@@ -19,10 +21,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _isVisible = true;
   final ScrollController _scrollController = ScrollController();
+  // Generate random image URLs
+  final List<String> _imageList = List.generate(30, (index) {
+    return "https://picsum.photos/500/500?random=$index";
+  });
+  late final UserProvider userProvider;
 
   @override
   void initState() {
     super.initState();
+    userProvider = Provider.of<UserProvider>(context, listen: false);
     _scrollController.addListener(
       () {
         if (_scrollController.position.userScrollDirection ==
@@ -57,12 +65,11 @@ class _HomePageState extends State<HomePage> {
               floating: true,
               snap: true,
               title: Center(
-                child: CreatorPicture(
-                  imageSource: "assets/images/profile_pic_2.png",
+                child: EditProfilePic(
+                  imageSource: userProvider.user!.photoUrl,
                   radius: 25,
                   height: 50,
                   width: 50,
-                  badgeType: BadgeType.edit,
                 ),
               ),
               bottom: TabBar(
@@ -78,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 unselectedLabelStyle: TextStyle(
                   fontWeight: FontWeight.normal,
-                  fontSize: 15.5,
+                  fontSize: 15,
                 ),
                 labelColor: Theme.of(context).colorScheme.inversePrimary,
                 indicatorColor: Colors.red,
@@ -92,6 +99,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             // Tab - Suggested
             MasonryGridView.count(
+              itemCount: _imageList.length,
               crossAxisCount: 2,
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
@@ -99,8 +107,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 return (index % 2) == 0
                     ? ImageTile(
-                        imageSource:
-                            "https://picsum.photos/500/500?random=$index",
+                        imageSource: _imageList[index],
                         authorImageSource: "assets/images/profile_pic_2.png",
                         index: index,
                         extent: 300,

@@ -55,6 +55,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = userProvider.user;
+    if (user == null) {
+      return Center(child: CircularProgressIndicator());
+    }
     return DefaultTabController(
       length: 3,
       child: NestedScrollView(
@@ -66,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               snap: true,
               title: Center(
                 child: EditProfilePic(
-                  imageSource: userProvider.user!.photoUrl,
+                  imageSource: user.photoUrl,
                   radius: 25,
                   height: 50,
                   width: 50,

@@ -11,20 +11,20 @@ import 'package:wallpaper_app/utils/constant.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ThemeProvider(),
+          create: (_) => ThemeProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => AuthService(Supabase.instance.client),
+          create: (_) => AuthService(Supabase.instance.client),
         ),
         ChangeNotifierProvider(
-          create: (context) => UserProvider(),
+          create: (_) => UserProvider(),
         ),
       ],
       child: const MyApp(),

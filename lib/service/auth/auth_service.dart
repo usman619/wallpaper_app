@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -5,9 +6,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:wallpaper_app/models/user_model.dart';
 import 'package:wallpaper_app/service/database/user_database.dart';
 import 'package:wallpaper_app/service/user_provider.dart';
+import 'package:wallpaper_app/utils/constant.dart';
 
 class AuthService extends ChangeNotifier {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn =
+      GoogleSignIn(serverClientId: serverClientId);
   final SupabaseClient _supabaseClient;
   GoogleSignInAccount? _user;
   GoogleSignInAccount? get user => _user;
@@ -22,6 +25,17 @@ class AuthService extends ChangeNotifier {
       final account = await _googleSignIn.signIn();
       if (account == null) return;
       _user = account;
+
+      final googleAuth = await account.authentication;
+      final accessToken = googleAuth.accessToken;
+      final idToken = googleAuth.idToken;
+
+      log('googleAuth: $googleAuth, accessToken: $accessToken, idToken: $idToken');
+
+      if (accessToken == null || idToken == null) {
+        return;
+      }
+
       // Extracting User info from Google
       final userModel = UserModel(
         googleId: account.id,
@@ -30,6 +44,20 @@ class AuthService extends ChangeNotifier {
         photoUrl: account.photoUrl ?? 'No Photo',
       );
 
+      log('userModel: $userModel');
+
+      // Signing in with Supabase
+      final response = await _supabaseClient.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: idToken,
+        accessToken: accessToken,
+      );
+
+      final supabaseUser = response.user;
+      log('supabaseUser: $supabaseUser');
+      if (supabaseUser == null) {
+        return;
+      }
       // Setting the data in user provider value
       final userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.setUser(userModel);
@@ -40,13 +68,13 @@ class AuthService extends ChangeNotifier {
       await userDatabase.createNewUser(userModel);
 
       messenger.showSnackBar(const SnackBar(
-        content: Text('Saved profile'),
+        content: Text('Login Successful'),
       ));
 
       notifyListeners();
     } catch (e) {
       messenger.showSnackBar(SnackBar(content: Text('Error: ${e.toString()}')));
-      print('Error: ${e.toString()}');
+      log('Error: ${e.toString()}');
     }
   }
 

@@ -19,11 +19,14 @@ class UserDatabase {
   }
 
   // Read User info
-  // final stream = Supabase.instance.client.from('users').stream(
-  //   primaryKey: ['id'],
-  // ).map((data) => data.map((userMap) => UserModel.fromMap(userMap)).toList());
+  Future<UserModel?> getUser(String email) async {
+    final user = await database.select().eq('email', email).maybeSingle();
+    if (user == null) {
+      return null;
+    }
+    return UserModel.fromMap(user);
+  }
 
-  // Update
   // Delete User
   Future deleteUser(UserModel user) async {
     await database.delete().eq('email', user.email);

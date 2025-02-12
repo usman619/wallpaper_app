@@ -4,7 +4,7 @@ import 'package:wallpaper_app/service/database/user_database.dart';
 
 class UserProvider extends ChangeNotifier {
   UserModel? _user;
-  UserDatabase? _database;
+  final UserDatabase _database = UserDatabase();
 
   UserModel? get user => _user;
 
@@ -13,9 +13,14 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<UserModel> getSignedInUser(String email) async {
+    final user = await _database.getUser(email);
+    return user!;
+  }
+
   Future<void> deleteUser() async {
     if (_user != null) {
-      await _database!.deleteUser(_user!);
+      await _database.deleteUser(_user!);
       clearUser();
     }
   }

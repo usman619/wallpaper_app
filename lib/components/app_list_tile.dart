@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppListTile extends StatefulWidget {
   final String title;
+  final Widget? leading;
   final String? subtitle;
   final bool? value;
   final Function? onTap;
@@ -13,6 +14,7 @@ class AppListTile extends StatefulWidget {
     this.value,
     this.onChanged,
     this.subtitle,
+    this.leading,
   });
 
   @override
@@ -29,6 +31,7 @@ class _AppListTileState extends State<AppListTile> {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: widget.onTap as void Function()?,
+      leading: widget.leading,
       title: Text(
         widget.title,
         style: TextStyle(fontSize: 18),

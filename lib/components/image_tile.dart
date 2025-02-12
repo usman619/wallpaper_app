@@ -97,7 +97,7 @@ class ImageTile extends StatelessWidget {
                     ),
                     Positioned(
                       top: 15,
-                      left: 0,
+                      left: 5,
                       child: GestureDetector(
                         onTap: () {
                           Navigator.pop(context);
@@ -118,7 +118,7 @@ class ImageTile extends StatelessWidget {
                     ),
                     Positioned(
                       top: 15,
-                      right: 0,
+                      right: 5,
                       child: Row(
                         spacing: 5,
                         children: [
@@ -230,7 +230,7 @@ class ImageTile extends StatelessWidget {
 
                 // Image Theme
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     spacing: 15,
@@ -246,10 +246,8 @@ class ImageTile extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                // Resolution
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     spacing: 15,
@@ -265,10 +263,9 @@ class ImageTile extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 // Quality
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     spacing: 15,
@@ -284,6 +281,21 @@ class ImageTile extends StatelessWidget {
                     ],
                   ),
                 ),
+                // AppListTile(
+                //   leading: Icon(Icons.settings_input_composite_rounded),
+                //   title: 'Full Res - Resolution',
+                // ),
+
+                // // Resolution
+                // AppListTile(
+                //   leading: Icon(Icons.info),
+                //   title: 'Full Res - Resolution',
+                // ),
+                // // Quality
+                // AppListTile(
+                //   leading: Icon(Icons.info),
+                //   title: 'Quality - Resolution',
+                // )
               ],
             ),
           );

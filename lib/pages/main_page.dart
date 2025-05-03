@@ -40,7 +40,7 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        height: _isVisible ? 85 : 0,
+        height: _isVisible ? 75 : 0,
         child: Wrap(
           children: [
             BottomNavigationBar(

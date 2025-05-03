@@ -39,7 +39,9 @@ class _AuthGateState extends State<AuthGate> {
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (snapshot.hasData) {
-                  userProvider.setUser(snapshot.data);
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    userProvider.setUser(snapshot.data);
+                  });
                   return MainPage();
                 } else {
                   return LoginPage();

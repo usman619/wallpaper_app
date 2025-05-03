@@ -1,0 +1,2 @@
+/home/usman619/flutter_projects/wallpaper_app/android/app/.cxx/Debug/57116m1h/x86/CMakeFiles/edit_cache.dir
+/home/usman619/flutter_projects/wallpaper_app/android/app/.cxx/Debug/57116m1h/x86/CMakeFiles/rebuild_cache.dir

@@ -37,76 +37,83 @@ class _UserAccountPageState extends State<UserAccountPage> {
           ),
           centerTitle: true,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
+        body: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            spacing: 10,
             children: [
-              ProfilePicture(
-                imageSource: userProvider.user!.photoUrl,
-                radius: 75,
-                height: 100,
-                width: 100,
-              ),
-              Text(userProvider.user!.email,
-                  style: TextStyle(
-                    fontSize: 16,
-                  )),
-              AppListTile(
-                title: 'Notifications',
-                value: true,
-                onChanged: CupertinoSwitch(
-                    value: false,
-                    onChanged: (value) {
-                      // change the value of th switch
-                      value = !value;
-                    }),
-              ),
-              AppListTile(
-                title: 'Anoyomous Reporting',
-                subtitle: 'Unidentified usage stats, performance etc.',
-                value: true,
-                onChanged: CupertinoSwitch(
-                  value: false,
-                  onChanged: (value) {
-                    // change the value of th switch
-                    value = !value;
-                  },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  spacing: 10,
+                  children: [
+                    ProfilePicture(
+                      imageSource: userProvider.user!.photoUrl,
+                      radius: 75,
+                      height: 100,
+                      width: 100,
+                    ),
+                    Text(userProvider.user!.email,
+                        style: TextStyle(
+                          fontSize: 16,
+                        )),
+                    AppListTile(
+                      title: 'Notifications',
+                      value: true,
+                      onChanged: CupertinoSwitch(
+                          value: false,
+                          onChanged: (value) {
+                            // change the value of th switch
+                            value = !value;
+                          }),
+                    ),
+                    AppListTile(
+                      title: 'Anoyomous Reporting',
+                      subtitle: 'Unidentified usage stats, performance etc.',
+                      value: true,
+                      onChanged: CupertinoSwitch(
+                        value: false,
+                        onChanged: (value) {
+                          // change the value of th switch
+                          value = !value;
+                        },
+                      ),
+                    ),
+                    AppListTile(
+                      title: 'Join Newsletter',
+                      subtitle: 'Info about upcoming wallpapers & releases.',
+                      value: true,
+                      onChanged: CupertinoSwitch(
+                        value: false,
+                        onChanged: (value) {
+                          // change the value of th switch
+                          value = !value;
+                        },
+                      ),
+                    ),
+                    userProvider.user!.email == '' &&
+                            userProvider.user!.name == ''
+                        ? SizedBox()
+                        : Column(
+                            children: [
+                              AppListTile(
+                                title: 'Restore Purchases',
+                                onTap: () {},
+                              ),
+                              AppListTile(
+                                title: 'Delete Account',
+                                onTap: () => showDeleteAccountAlertDialog(
+                                    context, userProvider),
+                              ),
+                              AppListTile(
+                                title: 'Sign Out',
+                                onTap: () => showSignOutAlertDialog(
+                                    context, authService),
+                              ),
+                            ],
+                          )
+                  ],
                 ),
               ),
-              AppListTile(
-                title: 'Join Newsletter',
-                subtitle: 'Info about upcoming wallpapers & releases.',
-                value: true,
-                onChanged: CupertinoSwitch(
-                  value: false,
-                  onChanged: (value) {
-                    // change the value of th switch
-                    value = !value;
-                  },
-                ),
-              ),
-              userProvider.user!.email == '' && userProvider.user!.name == ''
-                  ? SizedBox()
-                  : Column(
-                      children: [
-                        AppListTile(
-                          title: 'Restore Purchases',
-                          onTap: () {},
-                        ),
-                        AppListTile(
-                          title: 'Delete Account',
-                          onTap: () => showDeleteAccountAlertDialog(
-                              context, userProvider),
-                        ),
-                        AppListTile(
-                          title: 'Sign Out',
-                          onTap: () =>
-                              showSignOutAlertDialog(context, authService),
-                        ),
-                      ],
-                    )
             ],
           ),
         ));

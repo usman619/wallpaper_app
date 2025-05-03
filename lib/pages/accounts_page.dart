@@ -54,6 +54,9 @@ class _AccountsPageState extends State<AccountsPage> {
   @override
   Widget build(BuildContext context) {
     // final themeProvider = Provider.of<ThemeProvider>(context);
+    if (userProvider.user == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return SafeArea(
       child: NestedScrollView(
         controller: _scrollController,
